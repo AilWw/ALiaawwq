@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}الصفحة الرئيسية{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">أهلاً بك في نظام إدارة البيانات</h1>
+        <p class="col-md-8 fs-4">هذا النظام يساعدك على إدارة بيانات الضمان الاجتماعي، حساب المواطن، المقيمين، وبيانات فك بكل سهولة وفعالية.</p>
+        <a href="{% url 'social_security_list' %}" class="btn btn-primary btn-lg">ابدأ الآن</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>الضمان الاجتماعي</h2>
+        <p>إدارة بيانات المستفيدين من الضمان الاجتماعي.</p>
+        <p><a class="btn btn-secondary" href="{% url 'social_security_list' %}">عرض التفاصيل &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>حساب المواطن</h2>
+        <p>إدارة بيانات المستفيدين من حساب المواطن.</p>
+        <p><a class="btn btn-secondary" href="{% url 'citizen_account_list' %}">عرض التفاصيل &raquo;</a></p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h2>المقيمين</h2>
+        <p>إدارة بيانات المقيمين وتواريخ انتهاء إقاماتهم.</p>
+        <p><a class="btn btn-secondary" href="{% url 'residents_list' %}">عرض التفاصيل &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>فك</h2>
+        <p>إدارة بيانات فك، بما في ذلك حالة السداد وأسماء الواتساب.</p>
+        <p><a class="btn btn-secondary" href="{% url 'fak_list' %}">عرض التفاصيل &raquo;</a></p>
+    </div>
+</div>
+{% endblock %}
+
