@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}حساب المواطن{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>قائمة حساب المواطن</h1>
+    <form class="d-flex" role="search" method="GET">
+        <input class="form-control me-2" type="search"
+               placeholder="بحث بالاسم أو الهوية"
+               aria-label="Search" name="q"
+               value="{{ query|default:'' }}">
+        <button class="btn btn-outline-success" type="submit">بحث</button>
+    </form>
+    <a href="{% url 'citizen_account_create' %}" class="btn btn-primary">إضافة مدخل جديد</a>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'export_citizen_account_to_excel' %}" class="btn btn-success">تصدير إلى Excel</a>
+    <a href="{% url 'generate_citizen_account_report' %}" class="btn btn-info">تقرير Word اليومي</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>الهوية</th>
+            <th>تاريخ التسجيل</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.identity }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>
+                <a href="{% url 'citizen_account_update' entry.pk %}" class="btn btn-sm btn-info">تعديل</a>
+                <a href="{% url 'citizen_account_delete' entry.pk %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">لا توجد مدخلات لحساب المواطن حتى الآن.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}الضمان الاجتماعي{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>قائمة الضمان الاجتماعي</h1>
+    <form class="d-flex" role="search" method="GET">
+        <input class="form-control me-2" type="search"
+               placeholder="بحث بالاسم أو الهوية"
+               aria-label="Search" name="q"
+               value="{{ query|default:'' }}">
+        <button class="btn btn-outline-success" type="submit">بحث</button>
+    </form>
+    <a href="{% url 'social_security_create' %}" class="btn btn-primary">إضافة مدخل جديد</a>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'export_social_security_to_excel' %}" class="btn btn-success">تصدير إلى Excel</a>
+    <a href="{% url 'generate_social_security_report' %}" class="btn btn-info">تقرير Word اليومي</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>الاسم</th>
+            <th>الهوية</th>
+            <th>تاريخ التسجيل</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.identity }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>
+                <a href="{% url 'social_security_update' entry.pk %}" class="btn btn-sm btn-info">تعديل</a>
+                <a href="{% url 'social_security_delete' entry.pk %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center text-muted">لا توجد مدخلات للضمان الاجتماعي حتى الآن.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

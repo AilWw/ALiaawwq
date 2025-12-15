@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}المقيمين{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>قائمة المقيمين</h1>
+    <form class="d-flex" role="search" method="GET">
+        <input class="form-control me-2" type="search"
+               placeholder="بحث بالاسم، رقم الإقامة أو الشركة"
+               aria-label="Search" name="q"
+               value="{{ query|default:'' }}">
+        <button class="btn btn-outline-success" type="submit">بحث</button>
+    </form>
+    <a href="{% url 'residents_create' %}" class="btn btn-primary">إضافة مقيم جديد</a>
+</div>
+
+<div class="mb-3">
+    <a href="{% url 'export_residents_to_excel' %}" class="btn btn-success">تصدير إلى Excel</a>
+    <a href="{% url 'generate_residents_report' %}" class="btn btn-info">تقرير Word اليومي</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>رقم الإقامة</th>
+            <th>الشركة</th>
+            <th>تاريخ الانتهاء</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.residency_number }}</td>
+            <td>{{ entry.company }}</td>
+            <td>{{ entry.expiry_date }}</td>
+            <td>
+                <a href="{% url 'residents_update' entry.pk %}" class="btn btn-sm btn-info">تعديل</a>
+                <a href="{% url 'residents_delete' entry.pk %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">لا توجد بيانات للمقيمين حتى الآن.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}تأكيد حذف مدخل الضمان الاجتماعي{% endblock %}
+
+{% block content %}
+<h1>تأكيد حذف مدخل الضمان الاجتماعي</h1>
+<div class="alert alert-warning" role="alert">
+    هل أنت متأكد أنك تريد حذف المدخل الخاص بـ <strong>{{ entry.name }}</strong>؟
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+    <a href="{% url 'social_security_list' %}" class="btn btn-secondary">إلغاء</a>
+</form>
+{% endblock %}
+

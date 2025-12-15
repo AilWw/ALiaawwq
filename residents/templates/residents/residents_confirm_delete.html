@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}تأكيد حذف بيانات مقيم{% endblock %}
+
+{% block content %}
+<h1>تأكيد حذف بيانات مقيم</h1>
+<div class="alert alert-warning" role="alert">
+    هل أنت متأكد أنك تريد حذف بيانات المقيم <strong>{{ entry.name }}</strong>؟
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+    <a href="{% url 'residents_list' %}" class="btn btn-secondary">إلغاء</a>
+</form>
+{% endblock %}
+
